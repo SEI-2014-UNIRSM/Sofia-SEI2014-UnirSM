@@ -1,0 +1,64 @@
+//Trainspotting
+//pennello base, da implementare
+
+
+
+int Pulsazionimassimo = 5000;
+int numPulsazioni= 0;
+
+Pulsa pulsazioni [] = new Pulsa[Pulsazionimassimo];
+
+void setup(){
+size(2000,2000);
+smooth();
+noStroke();
+}
+
+void draw() {
+background(185,2,23);
+for (int i=0; i<numPulsazioni; i++){
+  pulsazioni[i].draw();
+}
+}
+
+void mousePressed(){
+ nuovoPulsazione(mouseX,mouseY); 
+  }
+  
+void mouseDragged(){
+nuovoPulsazione(mouseX,mouseY);
+}
+
+void keyPressed(){
+if (key==32) {
+numPulsazioni=0;
+}
+}
+
+void nuovoPulsazione(int nuovoX, int nuovoY) {
+  if (numPulsazioni<Pulsazionimassimo) {
+    pulsazioni[numPulsazioni]= new Pulsa(nuovoX, nuovoY);
+    numPulsazioni++;
+  }
+}
+
+
+class Pulsa{
+  
+  float SCALA = random(5,20);
+  int x;
+  int y;
+  float d;
+  
+  Pulsa(int pulsaX, int pulsaY){
+    x= pulsaX;
+    y= pulsaY;
+    d=0;
+  }
+  
+  void draw(){
+    fill(random(0,10),random(215,255),random(224,255),random(100,255)); 
+    ellipse(x, y, d/2+SCALA+random(1,20), d/2+SCALA+random(1,20)); 
+    d += random(0.5); 
+  }
+} 
