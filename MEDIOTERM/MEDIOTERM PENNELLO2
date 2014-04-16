@@ -1,0 +1,64 @@
+int Pulsazionimassimo = 5000;
+int numPulsazioni= 0;
+
+Pulsa pulsazioni [] = new Pulsa[Pulsazionimassimo];
+
+void setup(){
+size(1280,720, P2D);
+frameRate(20);
+smooth();
+noStroke();
+}
+
+void draw() {
+background(188,209,36);
+for (int i=0; i<numPulsazioni; i++){
+  pulsazioni[i].draw();
+}
+}
+
+//saveframe
+//saveFrame("Animazione01/ani-####.png");
+//}
+
+void mousePressed(){
+ nuovoPulsazione(mouseX,mouseY); 
+  }
+  
+void mouseDragged(){
+nuovoPulsazione(mouseX,mouseY);
+}
+
+void keyPressed(){
+if (key==32) {
+numPulsazioni=0;
+}
+}
+
+void nuovoPulsazione(int nuovoX, int nuovoY) {
+  if (numPulsazioni<Pulsazionimassimo) {
+    pulsazioni[numPulsazioni]= new Pulsa(nuovoX, nuovoY);
+    numPulsazioni++;
+  }
+}
+
+
+class Pulsa{
+  
+  float SCALA = random(5,20);
+  int x;
+  int y;
+  float d;
+  
+  Pulsa(int pulsaX, int pulsaY){
+    x= pulsaX;
+    y= pulsaY;
+    d=0;
+  }
+  
+  void draw(){
+    fill(random(200,255),random(0,10),random(0,10),random(100,255)); 
+    ellipse(x, y, d/2+SCALA+random(1,20), d/2+SCALA+random(1,20)); 
+    d += random(0.5); 
+  }
+} 
