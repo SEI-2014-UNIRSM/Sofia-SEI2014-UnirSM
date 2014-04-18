@@ -1,0 +1,122 @@
+//pennello per titoli di testa del film trainspotting
+//corso di SEI, a.a. 2013/2014, docente D. Tabellini. 
+//progetto di S. Macaluso
+
+import processing.pdf.*;
+import java.util.Calendar;
+
+
+boolean recordPDF = false; //boleana per salvare pdf
+int Pulsazionimassimo = 5000; //numero massimo di pulsazioni contenute nell'array
+int numPulsazioni= 0; //numero di pulsazioni all'inizio del ciclo 
+float mx=mouseX;
+float my=mouseY;
+
+
+Pulsa pulsazioni [] = new Pulsa[Pulsazionimassimo]; //classe per le pulsazioni
+
+void setup(){
+size(1280,720, P2D);
+background(125,125,125,0); 
+frameRate(15); 
+smooth();
+noStroke();
+}
+
+void draw() {
+//richiama la funzione display, che determina la pulsazione
+for (int i=0; i<numPulsazioni; i++){
+  pulsazioni[i].display();
+}
+
+//premendo a inizia la registrazione
+if (key =='a' || key =='A') {
+    saveFrame("Animation/anim-####.tga");
+    println(frameCount);
+
+}
+}
+
+//al click si crea un nuovo elemento della classe
+void mousePressed(){
+ nuovoPulsazione(mouseX,mouseY); 
+  }
+
+// trascinando il mouse si disegna 
+void mouseDragged(){
+ strokeWeight(8);  
+  stroke(222,4,26);
+   line(mouseX, mouseY, pmouseX, pmouseY);
+  //fill(255,0,0);
+  //ellipse (mouseX,mouseY,10,10);
+}
+
+//per cancellare
+void keyPressed(){
+if (key==32) {
+numPulsazioni=0;
+}
+
+
+ 
+}
+//funzione della classe
+void nuovoPulsazione(int nuovoX, int nuovoY) {
+  if (numPulsazioni<Pulsazionimassimo) {
+    pulsazioni[numPulsazioni]= new Pulsa(nuovoX, nuovoY);
+    numPulsazioni++;
+  }
+}
+   
+
+//salvare pdf
+void keyReleased(){
+  
+  if (key =='r' || key =='R') {
+    if (recordPDF == false) {
+      beginRecord(PDF, timestamp()+".pdf");
+      println("recording started");
+      recordPDF = true;
+    }
+  } 
+  else if (key == 'e' || key =='E') {
+    if (recordPDF) {
+      println("recording stopped");
+      endRecord();
+      recordPDF = false;
+      background(255);
+    }
+  }
+}
+//dichiarazione della classe
+class Pulsa{
+  
+  float SCALA = random(5,20);
+  int x;
+  int y;
+  float d;
+  
+  Pulsa(int pulsaX, int pulsaY){
+    x= pulsaX;
+    y= pulsaY;
+    d=0; //dimensione iniziale del diametro delle ellissi
+  }
+  
+
+  //funzione per definire la pulsazione
+  void display(){
+    
+    noStroke();
+    fill(random(160,255),random(0,20),random(0,20),random(50,225)); 
+    ellipse(x, y, d/2+SCALA+random(1,30), d/2+SCALA+random(1,30)); 
+    d += random(0.5); 
+    }
+
+}
+
+// timestamp
+String timestamp() {
+  Calendar now = Calendar.getInstance();
+  return String.format("%1$ty%1$tm%1$td_%1$tH%1$tM%1$tS", now);
+}
+
