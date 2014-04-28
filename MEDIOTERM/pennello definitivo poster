@@ -1,3 +1,7 @@
+//drawing tool per il corso di SEI, a.a.2013/14, prof. D. Tabellini
+//poster per il film Trainspotting
+
+
 import processing.pdf.*;
 import java.util.Calendar;
 PImage img; //immagine di sfondo
