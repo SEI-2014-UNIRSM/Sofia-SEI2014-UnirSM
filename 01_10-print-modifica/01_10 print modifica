@@ -1,11 +1,12 @@
-//modifiche a 10 print. obiettivo: non avere una schermata fissa, possibilità di cambiare "pattern" cliccando con mouse
-
-
+void setup() {  //il void setup è stato aggiunto
+    size(1020,680);
+    noStroke();  
+}
+    
 void draw (){;
-size(1020, 680);
-    noStroke();
+
+    
     background(0, 0, 255);
-   
     int rows = int(pow(2, int(random(1, 6))));
     int u = height / (rows + 4);
     int thickness = int(pow(2, int(random(1, 4))));
@@ -17,18 +18,19 @@ size(1020, 680);
     int endY = height/2 + rows/2 * u;
     for (int x = startX; x < endX; x += u) {
       for (int y = startY; y < endY; y += u) {
-        if(mousePressed==false){ //aggiunto al codice
+        if(mousePressed==false){
           if (random(1) > 0.5) {
           fill(255);
           quad(x, y, x+u, y+u, x+uth2, y+u, x+uth1, y);
         }
         else {
-          fill(0); 
+          fill(0);
           quad(x, y+u, x+u, y, x+uth2, y, x+uth1, y+u);
         }
       }
-      if (mousePressed==true){ //aggiunto al codice
-     fill(0,0,255);            //aggiunto al codice  
-      rect(0,0,1020,680);      //aggiunto al codice    
+      if (mousePressed==true){
+    
+     fill(0,0,255);
+     rect(0,0,width,height);
       }}
     }}
