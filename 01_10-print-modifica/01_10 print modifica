@@ -4,8 +4,7 @@ void setup() {  //il void setup è stato aggiunto
 }
     
 void draw (){;
-
-    
+    frameRate(5); //rallenta la creazione della nuova schermata
     background(0, 0, 255);
     int rows = int(pow(2, int(random(1, 6))));
     int u = height / (rows + 4);
